@@ -72,8 +72,6 @@ def fetch_hanime_data():
                         if file_name not in downloaded_files:
                             video_links = fetch_video_links(session, link)
                             if video_links and video_links[0].startswith("https://"):
-                                if len(video_links) > 1:
-                                      print(video_links)
                                 links.append([title, img, video_links[0]])
                                 if len(links) >= 50:
                                     break  # Exit if we have enough links
@@ -118,6 +116,7 @@ async def start_download():
             try:
                 up = 0
                 hanime_links = fetch_hanime_data()
+                hanime_links = list(set(hanime_links))
                 print(f"Total links found: {len(hanime_links)}")
                 for title, thumb, url in hanime_links:
                     file_path = f"Downloads/{title}.mp4"
